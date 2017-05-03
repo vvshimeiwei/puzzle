@@ -1,0 +1,68 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>puzzle</title>
+<link rel="stylesheet" type="text/css" href="css/style1.css" />
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body bgcolor="d9e5f9" id="body">
+	<p>
+		<img src="images/Time.png" align="left" /><img src="images/Step.png"
+			align="right" />
+	</p>
+	<br>
+	<p>
+		<input type="text" id="time" readonly="readonly"><input
+			type="text" id="step" readonly="readonly">
+	</p>
+	<br>
+	<br />
+	<div id="inner" align="center">
+		<br /> <br />
+		<div id="divpuzzle"></div>
+	</div>
+	<div align="center" id="button">
+		<img id="reset" src="images/reset2.png" align="left" width="30%"/> <a
+			href="changepic.html"><img src="images/choose2.png" align="middle" width="30%"></a><a
+			href="index.html"><img src="images/home2.png" align="right"
+			width="30%" /></a>
+	</div>
+	<script>
+		var startX, startY, x, y, aboveX, aboveY; 
+
+		var inner = document.getElementById("inner");
+
+		function touchSatrt(e) {//touch
+			e.preventDefault();
+			var touch = e.touches[0];
+			startX = touch.pageX;               
+			startY = touch.pageY;             
+
+		}
+		function touchMove(e) {//move          
+			e.preventDefault();
+			var touch = e.touches[0];
+			aboveX = x;
+			aboveY = y;
+			x = touch.pageX - startX;
+			y = touch.pageY - startY;//distance of movement
+		}
+		function touchEnd(e) {//finger leave
+			e.preventDefault();
+			deriction(x, y);
+
+		}
+
+		document.getElementById("inner").addEventListener('touchstart',
+				touchSatrt, false);
+		document.getElementById("inner").addEventListener('touchmove',
+				touchMove, false);
+		document.getElementById("inner").addEventListener('touchend', touchEnd,
+				false);
+	</script>
+</body>
+</html>
