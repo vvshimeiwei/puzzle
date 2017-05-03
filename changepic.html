@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript" src="js/main.js"></script>
+<title>change</title>
+<style>
+#outer {
+	width: 100%;
+	height: 450px;
+	margin: auto;
+	overflow: hidden;
+	background-color: #d9e5f9;
+}
+
+#inner {
+	width: 1400px;
+	height: 100%;
+	position: relative;
+	margin:20px;
+	top: 20px;
+	background-color: #d9e5f9;
+}
+</style>
+</head>
+<body bgcolor="d9e5f9">
+	<a href="index.html"><img src="images/back.png" width="30px"
+		height="30px"></a>
+	<br />
+	<img src="images/tip2.png" width="100%" />
+	<div id="outer">
+		<div id="inner" align="left">
+			<a href="picture1.html"><img src='images/picture1.jpg'
+				height="300px" /></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+			<a href="picture2.html"><img src='images/picture2.jpg' height="300px" /></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+			<a href="picture3.html"><img src='images/picture3.jpg'
+				height="300px" /></a>&nbsp&nbsp&nbsp&nbsp&nbsp
+			<a href="picture4.html"><img
+				src='images/picture4.jpg' height="300px" /></a>
+		</div>
+	</div>
+	<script>
+		var startX, startY, x, y, aboveX = 0, length;
+		var lastX, lastY;
+		var inner = document.getElementById("inner");
+
+		function touchSatrt(e) {//touch
+			e.preventDefault();
+			var touch = e.touches[0];
+			startY = touch.pageY; //the beginning coordinate    
+			startX = touch.pageX;
+			lastX = x;
+			lastY = y;
+		}
+
+		function touchMove(e) {//move      
+			e.preventDefault();
+			var touch = e.touches[0];
+			x = touch.pageX - startX;//the distance of movenent
+			y = touch.pageY - startY;
+			length = aboveX + x;    
+			if(length < 0 && length > -970)
+				inner.style.left = length + "px";                         
+			
+		}
+
+		function touchEnd(e) {//finger leave
+			e.preventDefault();
+			var a;
+			a = length-startX;                    
+			aboveX = parseInt(inner.style.left);//record the lastest coordinate
+			if(x == lastX && y == lastY)
+			{
+				if(a >-330)
+					window.location = "picture1.html";
+				else if (a<-330&&a>-660) {
+					window.location = "picture2.html";
+				}
+				else if(a>-990&&a<-660){
+					window.location = "picture3.html";
+				}
+				else{
+					window.location = "picture4.html"
+				}
+			}
+			
+		}
+		document.getElementById("inner").addEventListener('touchstart',
+				touchSatrt, false);
+		document.getElementById("inner").addEventListener('touchmove',
+				touchMove, false);
+		document.getElementById("outer").addEventListener('touchend', touchEnd,
+				false);
+	</script>
+
+
+</body>
+</html>
